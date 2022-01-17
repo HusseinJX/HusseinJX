@@ -1,0 +1,40 @@
+
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Products LIST
+                  
+                <button onclick="rightModal('/products/add', 'add Product')" class="btn btn-outline-primary float-sm-right">add Product</button>
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              
+              <div class="card-body productContent  table-responsive">
+
+              </div>
+
+            </div>
+            <script>
+
+
+              
+                $(document).ready(()=>{
+                    showProducts();
+                });
+
+
+
+                var showProducts = function(){
+                    $.ajax({
+                        url:'/products/list/{{business_id}}',
+                        success:function(data){
+                          $('.productContent').html(data);
+                          initDataTable('basic-datatable');
+                        }
+                    })
+                }
+                 
+            </script>
+            <!--
+              views[index page[list rendered by users/list route = table with users list]]
+            -->

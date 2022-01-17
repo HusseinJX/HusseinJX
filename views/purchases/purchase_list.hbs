@@ -1,0 +1,32 @@
+<table id="basic-datatable" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Cost</th>
+                    <th>quantity</th>
+                    <th>date</th>
+                    <th>options</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    
+                      {{#each purchaseArray}}
+                      <tr>
+                          <td>{{#each ../products}}
+                            
+                            {{#ifEquals ../product_id id}} 
+                            
+                        <input type="checkbox" name="" id="[{{../product_id}}]">
+                            {{product}}
+                            {{else}} 
+                            {{/ifEquals}}
+                            {{/each}}</td>
+                          <td>{{cost}}</td>
+                            <td>{{quantity}}</td>
+                          <td>{{date}}</td>
+                          
+                      </tr>
+                      {{/each}}
+                  </tbody>
+                </table>
+                

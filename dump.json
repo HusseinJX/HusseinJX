@@ -1,0 +1,294 @@
+<script>
+var purchase_order = {list:[]};
+      var Purchase=function(product = 'product', cost='cost', quantity='quantity', product_id='product_id', total='total'){
+      this.product = product;
+      this.cost = cost;
+      this.quantity = quantity;
+      this. product_id= product_id;
+      this. total= total;
+
+};
+                
+                
+
+              
+                  
+             
+                  if(purchase_order.list.length > 0){
+                    $.each(purchase_order.list, (i, order) =>{
+                      if(order.product_id == purchase.product_id){
+                        if(order.cost == purchase.cost){
+                          var quantityt =parseInt(purchase_order.list[i].quantity) +parseInt(purchase.quantity);
+                          var totalt = parseInt(purchase_order.list[i].total) +parseInt(purchase.total);
+                          purchase_order.list[i].quantity = quantityt;
+                          purchase_order.list[i].total = totalt;
+                        }else{
+                          purchase_order.list.push(purchase);
+                        };
+                      };
+                    });
+                    };
+                   
+
+
+                var removePurchase = function(purchase_order,i){
+                   if(purchase_order.list.length == i){
+                      purchase_order.list.pop();
+                   }else{
+                     purchase_order.list.splice(i,1);
+                   };
+                   $('#tablebody').html('');
+                    
+                    $.each(purchase_order.list, (i, value)=>{
+                      $('#tablebody').append("<tr><td>"+value.product+"</td><td>"+value.cost+"</td><td>"+value.quantity+"</td><td>"+value.total+"</td><td>"+value.date+"</td><td><button onclick='removePurchase(purchase_order, "+i+")' class='btn btn-outline-default text-danger'><i class='fas fa-trash'></i></button></td></tr>");
+                    });
+                    
+                };
+
+              
+
+
+</script>
+
+
+
+
+
+
+
+//working purchases index
+
+
+{{!-- MAIN CARD HEAD --}}
+            <div class="card">
+              <div class="card-header">
+                <h3><span id="title">Purchases</span>
+
+                <button onclick="" >Invoice</button>
+                  
+                <button id="purchase" onclick="viewPurchase()" class="btn btn-outline-primary float-sm-right">Purchase</button>
+                <button id="back" onclick="back()" class="btn btn-outline-default float-sm-right collapse text-danger"><i class="fas fa-reply"></i> back</button>
+                </h3>         
+                
+              </div>
+              <!-- /.card-header -->
+              
+            
+
+
+{{!-- INPUTS FOR TEMP PURCHASE ORDER FORM --}}
+            <div class="card-body collapse formContent"> 
+              
+                   <div class="row">
+                      <div class="col-sm-4 form-row" >
+                        <div class="form-group col-sm-12">
+                          <select id="product_id"  class="select2 form-control">
+                          <option value="">select product</option>
+                          {{#each products}}
+                          <option value="{{id}}_{{product}}" data-name="">{{product}}</option>
+                          {{/each}}
+                        </select>
+                        </div>
+                        <div class="form-group col-sm-12">
+                        <input id="cost" class="form-control" type="number" name="cost" placeholder="cost">
+                        </div>
+                        <div class="form-group col-sm-12">
+                        <input id='quantity'  class="form-control" type="text" name="quantity" placeholder="quantity: "> 
+                          
+                        </div>
+                        <div class="form-group col-sm-12">
+                        <input id="date" class="form-control" type="date" name="date" placeholder="date">
+                          
+                        </div>
+                        <div class="form-group">
+                        <button id="submit"  class="form-control btn btn-sm btn-primary" onclick="addPurchase(purchase_order)">submit</button>
+                          
+                        </div>
+
+              {{!--TEMP PURCHASE ORDER TABLE  --}}
+                      </div>
+                      <div class="col-sm-8">
+                          <div class="card-body productContent  table-responsive" style="overflow-y: scroll; height:440px;">
+                              <table id="basic-datatable1" class="table table-bordered table-striped">
+                              <thead>
+                              <tr>
+                                <th>Name</th>
+                                <th>Cost</th>
+                                <th>quantity</th>
+                                <th>total</th>
+                                <th>date</th>
+                                <th>options</th>
+                              </tr>
+                              </thead>
+                              <tbody id="tablebody">
+                                
+                              </tbody>
+                            </table>
+                          </div>
+                          <label id="totalQuantity" style="float: inline-start;" class="">Total Quantity: <span id='totalQuantityspan'>0</span></label>
+                          <label id="totalCost" style="float: inline-start;" class="">Total Cost: <span id='totalCostspan'>0</span></label>
+                          <button onclick="submitPurchase(purchase_order)" class="btn btn-outline-success" style="float: inline-end;">Submit Purchase</button>
+                          
+                      </div>
+                   </div>   
+            </div>
+            <div class='card-body purchaseContent'>
+              </div>
+              
+            </div>
+            
+            
+            
+            
+<script>
+
+
+
+//REMOVE PURCHASE
+var removePurchase = function(purchase_order,i){
+  purchase_order.list.pop([i]);
+  showPurchaseOrder();
+};
+
+//PURCHASE ORDER LIST ARRAY FOR TEMP STORAGE
+purchase_order={list:[]};
+
+//RENDER PURCHASsE ORDER LIST INTO PURCHASE ORDER TEMP TABLE
+var showPurchaseOrder = function(){
+  $('#tablebody').html('');
+  console.log('cleared');
+  $.each(purchase_order.list, ((i, value)=>{
+    $('#tablebody').append("<tr><td>"+value.product+"</td><td>"+value.cost+"</td><td>"+value.quantity+"</td><td>"+value.total+"</td><td>"+value.date+"</td><td><button onclick='removePurchase(purchase_order, "+i+")' class='btn btn-outline-default text-danger'><i class='fas fa-trash'></i></button></td></tr>");
+  }));
+};             
+
+  $(document).ready(function(){
+    showPurchases();
+  });
+
+
+  //ADD TO PURCHASE ORDER TEMP TABLE
+var addPurchase=function(purchase_order){ 
+  var purchase = {
+    //id:purchase_order.list.length,
+    product:$('#product_id').val().split('_')[1],
+    product_id:$('#product_id').val().split('_')[0],
+    cost:$('#cost').val(),
+    quantity:$('#quantity').val(),
+    date:$("#date").val(),
+    total:parseInt($('#cost').val())*parseInt($('#quantity').val())
+    };
+  if(purchase_order.list.length > 0){
+    //console.log('me');
+    
+    purchase_order_matching_result=[];
+    $.each(purchase_order.list, (i, order) =>{
+      //console.log(order);
+      if(order.product == purchase.product){  
+          //console.log('adding if matching product is found');
+          purchase_order_matching_result.push(true);
+          var quantityt =parseInt(purchase_order.list[i].quantity) +parseInt(purchase.quantity);
+          var totalt = parseInt(purchase_order.list[i].total) +parseInt(purchase.total);
+          purchase_order.list[i].quantity = quantityt;
+          purchase_order.list[i].total = totalt 
+          showPurchaseOrder();
+      };
+    });
+    if(purchase_order_matching_result.includes(true)){
+    
+    }else{
+      purchase_order.list.push(purchase);
+      showPurchaseOrder();
+    }
+
+  }else{
+    //console.log('pushing2');
+    purchase_order.list.push(purchase);
+    showPurchaseOrder();
+  };                 
+    
+    //console.log(purchase_order_matching_result);
+ 
+};
+
+var showPurchases = function(){
+    $.ajax({
+        url:'/purchases/list',
+        success:function(data){
+          $('.purchaseContent').html(data),
+          initDataTable('basic-datatable')
+        }
+    });
+    };
+
+//PURCHASE ORDER VIEW BUTTON AND BACK
+        var viewPurchase = function(){
+  $('.purchaseContent').addClass('collapse');
+  $('.formContent').removeClass('collapse');
+  $('#back').removeClass('collapse');
+  $('#purchase').addClass('collapse');
+  $('#title').html('Purchase Order');
+};
+  var back = function(){
+  $('.purchaseContent').removeClass('collapse');
+  $('#purchase').removeClass('collapse');
+  $('.formContent').addClass('collapse');
+  $('#back').addClass('collapse');
+  $('#title').html('Purchases');
+};
+
+  //var purchase = new Purchase();
+  //purchase=data;
+
+//AJAX POST PURCHASE ORDER TO PURCHASES TABLE                                    
+  var submitPurchase = function(purchase_order){ 
+    if(purchase_order.list.length <=0){
+      toastr.error('There are no purchases to submit');
+    }else{
+      $.ajax({
+        url:'/purchases/add',
+        type: 'POST',
+        data: purchase_order,
+        success:function(data){
+          if(data.status==true){
+          toastr.success(data.notification);
+          purchase_order=[];
+          back();
+          showPurchases();
+          }else{
+          toastr.error(data.notification);
+          back();
+          showPurchases();
+      }}
+
+
+
+
+        });
+    };};
+
+  
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+</script>
+            <!--
+              views[index page[list rendered by users/list route = table with users list]]
+            -->
+
+
+
+
+
+
+PURCHASES INDEX FULL PAGE=======================================================================

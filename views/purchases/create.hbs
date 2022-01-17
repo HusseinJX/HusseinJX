@@ -1,0 +1,43 @@
+<div  class="ajaxForm">
+
+<select id="product_id">
+  <option value="">select product</option>
+  {{#each products}}
+  <option value="{{id}}">{{product}}</option>
+  {{/each}}
+</select>
+
+ <input id='quantity' type="text" name="quantity" placeholder="quantity: ">
+ <input id="cost" class="form-input" type="number" name="cost" placeholder="cost">
+ <input id="date" class="form-input" type="date" name="date" placeholder="date">
+ <button id="submit" onclick="submit()">submit</button>
+
+</div>
+
+
+
+
+
+<script>
+  var submit = function(e){
+  var form = $(this);
+  var data = {
+    product_id:$('#product_id').val(),
+    quantity:$('#quantity').val(),
+    cost:$('#cost').val(),
+     date:$('#date').val(),
+  }
+  $.ajax({
+    url:'/purchases/add',
+    data:data,
+    success:function(data){
+      
+      $('.purchaseContent').html('');
+      $('.purchaseContent').html(data);
+    }
+  });
+  $('#right-modal').modal('hide');
+  }
+
+</script>
+

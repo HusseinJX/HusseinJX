@@ -1,0 +1,79 @@
+            <div class="card">
+              <div class="card-header">
+                <h3>Users LIST
+                <button onclick="rightModal('/users/add', 'add User')" class="btn btn-outline-primary float-sm-right">adduser</button>
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body usersContent  table-responsive">
+              </div>
+            </div>
+
+
+
+
+            <script>
+
+var showUsers = function(){
+  $.ajax({
+    url:'/users/list',
+    success:function(x){
+      $('.usersContent').html(x);
+      initDataTable('basic-datatable');
+    }
+  });
+};
+
+$(document).ready(()=>{showUsers();});
+
+var toggleCheckbox = function(role_id){
+  var id = $('#user_id').val();
+  console.log(id);
+  $.ajax({
+    type:'POST',
+    url:'/users/roles/'+id,
+    data:{role_id:role_id},
+    success:(data)=>{
+      console.log(data.status);
+      toastr.success(data.notification);
+      }
+  });
+};
+
+
+
+
+function ajaxSubmit(){
+  var form = $(this);
+  var data = {
+    name:$('#name').val(),
+    birth_date:$('#birth_date').val(),
+    email:$('#email').val(),
+    password:$('#password').val()
+  }
+}
+
+$.ajax({
+  type: 'POST',
+  url: action,
+  dataType: 'json',
+  data: data,
+  success: function(response){
+    //console.log(response);
+    if (response.status){
+      toastr.success(response.notification);
+    }else{
+      toastr.error(response.notification);
+    }
+  }
+});
+//ajaxSubmit(e, form,data,showUsers);
+
+
+
+
+
+       </script>
+            <!--
+              views[index page[list rendered by users/list route = table with users list]]
+            --> 

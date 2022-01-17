@@ -1,0 +1,46 @@
+{{#each users}}
+<form method='post' action='/users/edit/{{id}}' class="ajaxForm">
+
+
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" value="{{user}}" id="name" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="birth_date">Birth date</label>
+    <input type="date" value="{{birth_date}}" id="birth_date" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" value="{{email}}" id="email" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" value="" id="password" class="form-control">
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-block btn-primary" style="align-content: center;">
+      Submit
+    </button>
+  </div>
+
+</form>
+{{/each}}
+
+
+
+<script>
+  $('.ajaxForm').submit(function (e) {
+
+    var form = $(this);
+    var data = {
+      name: $('#name').val(),
+      birth_date: $('#birth_date').val(),
+      email: $('#email').val(),
+      password: $('#password').val()
+    }
+    ajaxSubmit(e, form, data, showUsers);
+    $('#right-modal').modal('hide');
+  }); 
+</script>

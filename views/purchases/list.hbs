@@ -1,0 +1,22 @@
+<table id="basic-datatable" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Name</th>
+                    <th>Details</th>
+                    <th>Cost</th>
+                    <th>quantity</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      {{#each purchases}}
+                      <tr>
+                          <td>{{order_id}}</td>
+                          <td>{{product}}</td>
+                          <td>{{details}}</td>
+                          <td>{{cost}}</td>
+                            <td>{{quantity}}</td>
+                      </tr>
+                      {{/each}}
+                  </tbody>
+                </table>

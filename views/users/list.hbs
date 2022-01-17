@@ -1,0 +1,27 @@
+<table id="basic-datatable" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>birth_date</th>
+                    <th>Options</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      {{#each users_list}}
+                      <tr>
+                          <td>{{id}}</td>
+                          <td>{{user}}</td>
+                          <td>{{email}}</td>
+                          <td>{{birth_date}}</td>
+                          <td>
+                             <a href="javascript:void(0);" onclick="rightModal('/users/roles/{{id}}','update user role');">roles  </a>
+                            <a href="javascript:void(0);" onclick="rightModal('/users/edit/{{id}}','update user');">edit  </a>
+                            <a href="javascript:void(0);" onclick="confirmModal('/users/del/{{id}}', showUsers)">del</a>
+                          </td>
+
+                      </tr>
+                      {{/each}}
+                  </tbody>
+                </table>

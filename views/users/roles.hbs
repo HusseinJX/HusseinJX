@@ -1,0 +1,37 @@
+
+        
+        <table class="table" width="100%" >
+            <input type="hidden" name="user" id="user_id" value="{{user_id}}">
+        <thead>
+            <tr>
+                <th>Roles</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        {{#each roles}}
+        <tbody style="width: 10%;">
+        <tr>
+            <td>
+                {{role}}    
+                </td>
+            <td>
+                
+            <div class="custom-control custom-switch">
+                {{#ifRowExists ../user_roles role }}
+                      <input id="{{id}}" type="checkbox" class="custom-control-input" onclick="toggleCheckbox('{{id}}')" checked name="{{id}}">
+                      <label for="{{id}}" class="custom-control-label" ></label>
+                 {{else}}
+                      <input  id="{{id}}" type="checkbox" class="custom-control-input"  onclick="toggleCheckbox('{{id}}')" name="{{id}}">
+                      <label for="{{id}}" class="custom-control-label" ></label>
+                {{/ifRowExists}}
+            </div>
+            </td>
+        </tr>
+        {{/each}}
+</tbody>
+       </table> 
+
+
+
+
+ 

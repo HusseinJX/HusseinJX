@@ -1,0 +1,27 @@
+{{#each products}}
+<form method='post' action = '/products/edit/{{id}}' class="ajaxForm">
+ <input id="name" value="{{name}}" class="form-input" type="text" name="name" placeholder="name">
+ <input id='details' value="{{details}}" type="text" name="details" placeholder="details: ">
+ <input id="cost" value="{{cost}}" class="form-input" type="number" name="cost" placeholder="cost">
+ <input id="price" value="{{price}}" class="form-input" type="number" name="price" placeholder="price">
+ <input id="inventory" value="{{inventory}}" class="form-input" type="number" name="inventory" placeholder="inventory">
+ 
+ <button id="submit">submit</button>
+</form>
+{{/each}}
+<script>
+  $('.ajaxForm').submit(function(e){
+  
+  var form = $(this);
+  var data = {
+    name:$('#name').val(),
+    details:$('#details').val(),
+    cost:$('#cost').val(),
+     price:$('#price').val(),
+     inventory:$('#inventory').val(),
+  }
+  ajaxSubmit(e, form,data,showProducts);
+  $('#right-modal').modal('hide');
+}); 
+</script>
+

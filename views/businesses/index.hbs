@@ -1,0 +1,61 @@
+
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Businesses LIST
+                  
+                <button onclick="rightModal('/businesses/add', 'add Business')" class="btn btn-outline-primary float-sm-right">add Business</button>
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              
+              <div class="card-body businessesContent  table-responsive">
+
+              </div>
+
+            </div>
+            <script>
+                $(document).ready(()=>{
+                    showBusinesses();
+                     function ajaxSubmit(){
+                  var form = $(this);
+                  var data = {
+                    name:$('#name').val(),
+                    email:$('#email').val(),
+                    phone:$('#phone').val(),
+                    address:$('#address').val(),
+                    contact_name:$('contact_name').val()
+                  }
+                   $.ajax({
+                      type: 'POST', 
+                      url: action, 
+                      dataType: 'json',
+                      data: data,
+                      success: function(response){
+                          console.log(response);
+                          if (response.status){
+                              toastr.success(response.notification);
+                          }else{
+                              toastr.error(response.notification);
+                          }
+                      }
+                  });
+                  //ajaxSubmit(e, form,data,showUsers);
+                }; 
+                });
+                var showBusinesses = function(){
+                    $.ajax({
+                        url:'/businesses/list',
+                        success:function(x){
+                          $('.businessesContent').html(x);
+                          initDataTable('basic-datatable');
+                        }
+                    })
+                }
+                
+                 
+              
+       </script>
+            <!--
+              views[index page[list rendered by users/list route = table with users list]]
+            -->

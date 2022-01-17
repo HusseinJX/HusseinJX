@@ -1,0 +1,72 @@
+<!--
+<form class="form" action="#" method="post">
+      <div class="form-group">
+      <label for='user'>Name</label>
+      <input id="name" class="form-input" type="text" name="name" placeholder="name">
+      </div>
+      <input id='age' type="text" name="age" placeholder="age: ">
+      <input id= 'password' type="password" name="password" placeholder="Password: ">
+      <input id='submit'  type="button" onclick="func2()" name="submit" value="submit">
+      <!-- <button type="button" name="submit"></button> --
+    </form>
+ -->
+{{!-- <form method='post' action = '/users/add' class="ajaxForm">
+ <input id="name" class="form-input" type="text" name="name" placeholder="name">
+ <input id='birth_date' type="date" name="birth_date" placeholder="age: ">
+ <input id="email" class="form-input" type="email" name="email" placeholder="email">
+ <input id='password' type="password" name="password" placeholder="Password: ">
+ 
+ <button id="submit">submit</button>
+</form> --}}
+{{!-- --}}
+
+
+          <form class=" ajaxForm" action="/users/add" >
+                
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name='name' class="form-control" >
+              </div>       
+              <div class="form-group">
+                <label for="birth_date">Birth Date</label>
+                <input type="date" id="birth_date" name='birth_date' class="form-control" >
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name='email' class="form-control" >
+              </div>
+                 <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name='password' class="form-control" >
+              </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-primary"  style="align-content: center;">
+                  Submit
+                </button>
+              </div>
+            <!-- /.card-body -->
+         
+          <!-- /.card -->
+          
+            
+          </form>
+          <!-- /.card -->
+        
+        <script>
+
+
+  $('.ajaxForm').submit(function(e){
+  
+  var form = $(this);
+  var data = {
+    user:$('#name').val(),
+    birth_date:$('#birth_date').val(),
+    email:$('#email').val(),
+    password:$('#password').val()
+  }
+  ajaxSubmit(e, form,data,showUsers);
+  $('#right-modal').modal('hide');
+}); 
+</script> 
+   

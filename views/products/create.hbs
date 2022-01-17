@@ -1,0 +1,26 @@
+<form method='post' action = '/products/add' class="ajaxForm">
+ <input id="name" class="form-input" type="text" name="name" placeholder="name">
+ <input id='details' type="text" name="details" placeholder="details: ">
+ <input id="cost" class="form-input" type="number" name="cost" placeholder="cost">
+ <input id="price" class="form-input" type="number" name="price" placeholder="price">
+ <input id="inventory" class="form-input" type="number" name="inventory" placeholder="inventory">
+ 
+ <button id="submit">submit</button>
+</form>
+
+<script>
+  $('.ajaxForm').submit(function(e){
+  
+  var form = $(this);
+  var data = {
+    name:$('#name').val(),
+    details:$('#details').val(),
+    cost:$('#cost').val(),
+     price:$('#price').val(),
+     inventory:$('#inventory').val(),
+  }
+  ajaxSubmit(e, form,data,showProducts);
+  $('#right-modal').modal('hide');
+}); 
+</script>
+
