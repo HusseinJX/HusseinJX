@@ -12,7 +12,7 @@ var loggedin = function (req, res, next) {
         res.redirect('/login');
     }
 }
-var purchaseArray = [];
+//var purchaseArray = [];
 
 
 router.get('/', loggedin, (req, res) => {
