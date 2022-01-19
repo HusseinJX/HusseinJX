@@ -1,4 +1,11 @@
-{
+{ "name": "calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "NODE_ENV=development nodemon main.js",
+    "migrate": "knex migrate:latest --knexfile knexfile.js"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",

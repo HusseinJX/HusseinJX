@@ -5,10 +5,10 @@ exports.seed = function(knex) {
       .then(function () {
         // Inserts seed entries
         return knex('roles').insert([
-          {id: 0, role: 'default'},
-          {id: 1, role: 'superadmin'},
-          {id: 2, role: 'admin'},
-          {id: 3, role: 'manager'}
+          {tb_role_id: 1, role: 'default'},
+          {tb_role_id: 2, role: 'superadmin'},
+          {tb_role_id: 3, role: 'admin'},
+          {tb_role_id: 4, role: 'manager'}
         ]);
       });
   };

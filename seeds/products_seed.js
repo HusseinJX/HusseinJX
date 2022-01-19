@@ -5,9 +5,9 @@ exports.seed = function(knex) {
       .then(function () {
         // Inserts seed entries
         return knex('products').insert([
-          {business_id: 1, product: 'bulb', details:'2w', cost:'3000', price:'5000', inventory: '50' },
-          {business_id: 1, product: 'spotlight', details:'50w', cost:'50000', price:'75000', inventory: '50' },
-          {business_id: 1, product: 'panel', details:'200w', cost:'100000', price:'150000', inventory: '50' }
+          {tb_product_id: 1, product: 'bulb', details:'2w' },
+          {tb_product_id: 2, product: 'spotlight', details:'50w'},
+          {tb_product_id: 3, product: 'panel', details:'200w'}
         ]);
       });
   };

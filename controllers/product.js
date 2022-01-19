@@ -1,7 +1,8 @@
 //knex 
 const connection = require ('./../knexfile')[process.env.NODE_ENV || 'development'];
 const knex = require('knex')(connection);
-const ProductBusiness = require('./../models/relations/products')
+const ProductBusiness = require('./../models/relations/products');
+const PurchaseRelation = require('./../models/relations/purchase');
 const Product = require('./../models/product');
 
 //define functions
@@ -20,12 +21,12 @@ function getProductList(){
 }
 function productById(id){
     const product = new Product();
-   return knex('products').select(product).where({id:id});
+   return knex('products').select(product).where({tb_product_id:id});
 }
 function productByBusiness(business_id){
     const product = new ProductBusiness();
     return knex('products').select(product).where({business_id:business_id}).join('businesses',function(){
-        this.on('businesses.id', '=', 'products.business_id')});
+        this.on('businesses.tb_business_id', '=', 'products.business_id')});
      
 }
 function delProduct(id){

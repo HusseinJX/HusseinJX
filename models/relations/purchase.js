@@ -1,20 +1,17 @@
- 
- //create model, show whata properties User object has and what thir type (string) is
- function Purchase( product_id='product_id',order_id='order_id',quantity ='quantity', date='date', cost='cost', receipt='receipt', product='product',
- details ='details'){
-    
-   
-    this.product_id=product_id;
-    this.order_id=order_id;
-    this.quantity=quantity;
-    this.date=date;
-    this.cost=cost;
-    this.receipt=receipt;
 
-    this.product=product;
-    this.details=details;
-      
- };
+const Purchase = require('./../purchaseModel');
+class PurchaseRelation extends Purchase {
+    product=new String;
+    details = new String;
+   constructor(
+       product='product'|| new String, 
+       details ='details'|| new String
+   ){
 
- //export module
- module.exports = Purchase;
+       super();
+       this.product=product;
+       this.details=details;
+
+   }
+}
+module.exports = PurchaseRelation;

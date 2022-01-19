@@ -36,8 +36,9 @@ router.get('/', loggedin, (req, res) => {
 
 router.get('/list', loggedin, (req, res) => {
     var business_id = req.session.passport.user.business_id;
+    console.log(business_id);
     Purchases.purchaseByBusiness(business_id).then((purchases) => {
-
+        console.log(purchases);
         res.render('purchases/list', { purchases: purchases, layout: false });
     }).catch((err) => {
         console.log(err);

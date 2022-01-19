@@ -18,7 +18,7 @@ const app = express();
 
 //host and port 
 const host = 'localhost';
-const port = 3000;
+const port = 8080;
 
 //set public  
 app.use('/public', express.static(path.join(__dirname,'public')));
@@ -64,7 +64,7 @@ app.use(flash());
 var index = require('./routes/index');
 var user = require('./routes/users_route');
 var auth = require('./routes/auth')(passport);
-//var product = require('./routes/product');
+var product = require('./routes/product');
 //var businesses = require('./routes/businesses');
 var purchases =require('./routes/purchases');
 
@@ -72,7 +72,7 @@ app.use('/purchases', purchases);
 app.use('/', index);
 app.use('/users', user);
 app.use('/auth', auth);
-//app.use('/products', product)
+app.use('/products', product)
 //app.use('/businesses', businesses);
 
 //app.listen 

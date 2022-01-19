@@ -1,8 +1,11 @@
 const express = require('express');
 const { redirect } = require('express/lib/response');
+const Purchase = require('../models/purchase');
 const router = express.Router();
 const Products = require('./../controllers/product');
+const Purchases = require('./../controllers/purchase');
 const Product = require('./../models/product');
+const PurchaseRelation = require('./../models/relations/purchase');
 
 var loggedin = function(req,res, next){
     if(req.isAuthenticated()){
@@ -15,11 +18,23 @@ router.get('/',  loggedin, (req, res)=>{
 });
 router.get('/list',loggedin, (req, res)=>{
     var business_id = req.session.passport.user.business_id;
+    var prodList = [];
     Products.productByBusiness(business_id).then((products)=>{
-        res.render('products/list', {products:products, layout:false});
+        for(var prod of products){
+            console.log(prod);
+            Purchases.purchaseByProducts(prod.tb_product_id).then((productRelations)=>{
+                for(var prod1 of productRelations){
+                    var purchase = new PurchaseRelation();
+                    purchase = prod1;
+                    prodList.push(purchase);
+                }
+            });
+        }
     }).catch((err)=>{
         console.log(err);
     });
+
+    res.render('products/list', {products:prodList, layout:false});
 });
 router.get('/add', loggedin,  (req, res)=> {
     res.render('products/create', {layout:false});

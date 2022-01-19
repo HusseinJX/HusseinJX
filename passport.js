@@ -21,10 +21,11 @@ module.exports = (passport) =>{
         passwordField:'password'
         },
         function(email, password, done){
+            console.log('passport function: ', password);
             Users.findOne(email).then((user) =>{
-                //console.log(user[0].id);
-                Users.getUserRoles(user[0].id).then((user_roles) =>{
-                    //console.log('user roles: '+user_roles);
+                console.log(user);
+                Users.getUserRoles(user[0].tb_user_id).then((user_roles) =>{
+                    console.log('user roles: ', user_roles);
                     bcrypt.compare(password, user[0].password, (err,res) =>{
                         if (res){
                             done(null, user_roles[0]);
@@ -34,10 +35,11 @@ module.exports = (passport) =>{
                         }
                     });
                 }).catch((err) =>{
-                    console.log('Userrole error in passport');
+                    console.log(err);
                     done(null, false)});
             }).catch((err) =>{
             console.log('findOne error');
+            console.log(err);
             done(null, false);
         })}
     ))}

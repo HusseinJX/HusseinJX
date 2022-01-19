@@ -5,7 +5,7 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('sessions').insert([
-        {id: 1, year: '2021' }
+        {tb_session_id: 1, year: '2021' }
       ]);
     });
 };

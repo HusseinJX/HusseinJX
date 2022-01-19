@@ -1,25 +1,27 @@
  //create model, show whata properties User object has and what thir type (string) is
- function Product(
-    business_id='business_id', 
-    product='product',
-    details ='details', 
-    business='business', 
-    business_email='business_email', 
-    phone='phone', 
-    address='address', 
-    contact_name='contact_name'){
-
-    this.business_id=business_id;
-    this.product=product;
-    this.details=details;
-
+ const Product = require('./../product');
+ class ProductRelation extends Product{
+    business=new String;
+    email=new String; 
+    phone=new String;
+    address=new String;
+    contact_name = new String;
+  constructor(
+    business='business'|| new String,
+    email='email'|| new String, 
+    phone='phone'|| new String,
+    address='address'|| new String,
+    contact_name='contact_name'|| new String
+  ){
+    super();
     this.business=business;
-    this.business_email=business_email;
+    this.email=email;
     this.phone=phone;
     this.address=address;
     this.contact_name=contact_name;
-
- };
-
- //export module
- module.exports = Product;
+  }
+  get(){
+    return this;
+  }
+};
+ module.exports = ProductRelation;
