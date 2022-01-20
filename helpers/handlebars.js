@@ -1,9 +1,28 @@
 const handlebars = require('express-handlebars');
+const Langage = require('./lang');
 
 var register = function(handlebars){
     var helpers = {
 
         //function
+        langAssist: function(phrase){
+            if(phrase == undefined){
+                return "undefined value is not string";
+            }else{
+                var formedPhrase= phrase.toString().replaceAll(' ', '_');
+                console.log(formedPhrase);
+                var lang = new Langage('en');
+                var data = lang.getPhrase(formedPhrase);
+                if(data.length<=0){
+                    return "error occured";
+                }else{
+                    var language = JSON.parse(data);
+                    console.log(language);
+                    return language[''+formedPhrase+''];
+                }
+            }
+        },
+
         ifRowExists: function(row, value, options) {
             var k = [];
             row.forEach(row => {

@@ -18,7 +18,7 @@ const app = express();
 
 //host and port 
 const host = 'localhost';
-const port = 8080;
+const port = 3000;
 
 //set public  
 app.use('/public', express.static(path.join(__dirname,'public')));
